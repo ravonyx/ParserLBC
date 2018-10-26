@@ -25,13 +25,13 @@ namespace ParserLBC
         public MainPage()
         {
             this.InitializeComponent();
-            webBrowser.LoadCompleted += WebBrowser_LoadCompleted;
+            webBrowser.NavigationCompleted += WebBrowser_NavigationCompleted;
             webBrowser.Navigate(new Uri("https://www.leboncoin.fr/annonces/offres/ile_de_france/"));
         }
 
-        private async void WebBrowser_LoadCompleted(object sender, NavigationEventArgs e)
+        private async void WebBrowser_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            string html = await webBrowser.InvokeScriptAsync("eval", new string[] { "document.documentElement.outerHTML;" });
+            string html = await webBrowser.InvokeScriptAsync("eval", new string[] { "document.documentElement.innerHTML;" });
 
             System.Diagnostics.Debug.Write(html);
         }
